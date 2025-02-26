@@ -29,7 +29,10 @@ import java.util.Map;
                 System.out.println("Please provide the parameters in the correct format.");
             }
 
+           //GameTable gameTable = new GameTable();
+             // gameTable.PrintTable();
 
+            Pieces.printList();
 
 
         }

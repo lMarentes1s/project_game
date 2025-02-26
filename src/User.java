@@ -2,7 +2,7 @@ public class User {
     private String Algorithm;
     private String ListType;
     private String order;
-    private String piece;
+    private static String piece;
     private int time;
 
 
@@ -65,7 +65,7 @@ public class User {
         }
     }
 
-    public String getPiece() {
+    public static String getPiece() {
         return piece;
     }
 
