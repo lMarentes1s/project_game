@@ -1,7 +1,7 @@
 public class User {
     private String Algorithm;
     private String ListType;
-    private String order;
+    private static String order;
     private static String piece;
     private int time;
 
@@ -53,7 +53,7 @@ public class User {
         }
     }
 
-    public String getOrder() {
+    public static String getOrder() {
         return order;
     }
 
