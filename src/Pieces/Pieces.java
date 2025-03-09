@@ -1,6 +1,9 @@
+package Pieces;
+
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Collections;
+import java.util.List;
+import Game.User;
 
 public abstract class Pieces {
     protected String name;
@@ -9,13 +12,12 @@ public abstract class Pieces {
     protected int originalRow;
     protected int originalCol;
 
-
     public Pieces(String name, int row, int col) {
         this.name = name;
         this.row = row;
         this.col = col;
-        this.originalRow = row;  // Guardamos la posición original
-        this.originalCol = col;  // Guardamos la posición original
+        this.originalRow = row;
+        this.originalCol = col;
     }
 
     public String getName() {
@@ -39,24 +41,22 @@ public abstract class Pieces {
     }
 
     public int getOriginalRow() {
-        return originalRow;  // Obtener la fila original
+        return originalRow;
     }
 
     public int getOriginalCol() {
-        return originalCol;  // Obtener la columna original
+        return originalCol;
     }
 
-    // Genera una lista de piezas según la configuración del usuario
-    public static List<Pieces> listOfPieces() {
-        int quantity = Integer.parseInt(User.getPiece());
-        String color = User.getOrder();
+    public static List<Pieces> createPiecesList(User user) {
+        int quantity = Integer.parseInt(user.getPiece());
+        String color = user.getOrder();
 
         int baseRow = color.equalsIgnoreCase("w") ? 0 : 7;
         int pawnRow = color.equalsIgnoreCase("w") ? 1 : 6;
 
         List<Pieces> pieces = new ArrayList<>();
 
-        // Añadir piezas según la cantidad seleccionada
         if (quantity >= 1) pieces.add(new King(baseRow, 4));
         if (quantity >= 2) pieces.add(new Queen(baseRow, 3));
         if (quantity >= 4) {
@@ -81,12 +81,10 @@ public abstract class Pieces {
             }
         }
 
-        // Desordenamos las piezas antes de colocarlas en el tablero
         Collections.shuffle(pieces);
         return pieces;
     }
 
-    // Clases concretas para cada tipo de pieza
     static class King extends Pieces {
         public King(int row, int col) {
             super("KG", row, col);

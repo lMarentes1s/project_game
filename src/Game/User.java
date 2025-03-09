@@ -1,3 +1,5 @@
+package Game;
+
 public class User {
     private String Algorithm;
     private String ListType;
@@ -6,7 +8,7 @@ public class User {
     private static int time;
 
 
-    private String[] validAlgorithm = {"b", "m", "i"};  // Bubble, Merge, Insert
+    private String[] validAlgorithm = {"q", "s", "i"};  // Bubble, Merge, Insert
     private String[] validListType = {"n", "c"};  // Numeric, Character
     private String[] validOrder = {"b", "w"};  // Black,white
     private String[] validPiece = {"1", "2", "4", "8", "10", "16"};  // 1,2,4,8,10,16

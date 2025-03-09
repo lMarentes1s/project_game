@@ -1,38 +1,41 @@
-import java.util.Collections;
+package Game;
+import Pieces.Pieces;
 import java.util.List;
+import Algorithms.SortingAlgorithms;
+
 
 public class GameTable {
-    protected final String[][] table;
+    private final String[][] table;
     private final int delay;
     private List<Pieces> pieces;
 
-    public GameTable() {
+    public GameTable(User user) {
         this.table = new String[8][8];
-        this.delay = User.getTime();
+        this.delay = user.getTime();
     }
 
-    public void initialize() {
+    public void initialize(User user) {
         clearTable();
-        this.pieces = Pieces.listOfPieces();
-
+        this.pieces = Pieces.createPiecesList(user);
         placePiecesOnBoard();
         printTable();
-
-        // Iniciar el algoritmo de ordenamiento
-        SortingAlgorithms.quickSortAndPrintgit(pieces, this);
+        SortingAlgorithms sort = new SortingAlgorithms();
+        sort.sortAndPrint(pieces, this, user.getAlgorithm());
     }
+
+
 
     private void clearTable() {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                table[i][j] = "."; // Limpiar la tabla (representar celdas vacías)
+                table[i][j] = ".";
             }
         }
     }
 
     private void placePiecesOnBoard() {
         for (Pieces piece : pieces) {
-            table[piece.getRow()][piece.getCol()] = piece.getName(); // Colocar piezas en el tablero
+            table[piece.getRow()][piece.getCol()] = piece.getName();
         }
     }
 
@@ -41,7 +44,7 @@ public class GameTable {
         placePiecesOnBoard();
         printTable();
         try {
-            Thread.sleep(delay); // Esperar para visualizar los cambios
+            Thread.sleep(delay);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }

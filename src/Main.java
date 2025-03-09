@@ -1,3 +1,6 @@
+import Game.GameTable;
+import Game.User;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -5,7 +8,6 @@ public class Main {
     public static void main(String[] args) {
         if (args.length > 1) {
             Map<String, String> paramMap = new HashMap<>();
-
             for (String param : args) {
                 String[] keyValue = param.split("=");
                 paramMap.put(keyValue[0], keyValue[1]);
@@ -20,9 +22,8 @@ public class Main {
             User user = new User(algorithm, listType, order, piece, time);
             System.out.println(user);
 
-            GameTable gameTable = new GameTable();
-            gameTable.initialize();
-
+            GameTable gameTable = new GameTable(user);
+            gameTable.initialize(user);
         }
     }
 }
