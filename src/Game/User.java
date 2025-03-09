@@ -1,85 +1,80 @@
 package Game;
 
+import java.util.Set;
+
 public class User {
-    private String Algorithm;
-    private String ListType;
-    private static String order;
-    private static String piece;
-    private static int time;
+    private String algorithm;
+    private String listType;
+    private String order;
+    private String piece;
+    private int time;
 
+    private static final Set<String> VALID_ALGORITHMS = Set.of("q", "s", "i");  // QuickSort, SelectionSort, InsertionSort
+    private static final Set<String> VALID_LIST_TYPES = Set.of("n", "c");  // Numeric, Character
+    private static final Set<String> VALID_ORDERS = Set.of("b", "w");  // Black, White
+    private static final Set<String> VALID_PIECES = Set.of("1", "2", "4", "8", "10", "16");
 
-    private String[] validAlgorithm = {"q", "s", "i"};  // Bubble, Merge, Insert
-    private String[] validListType = {"n", "c"};  // Numeric, Character
-    private String[] validOrder = {"b", "w"};  // Black,white
-    private String[] validPiece = {"1", "2", "4", "8", "10", "16"};  // 1,2,4,8,10,16
-
-    public User(String Algorithm, String ListType, String order, String piece, int time) {
-        setAlgorithm(Algorithm);
-        setListType(ListType);
+    public User(String algorithm, String listType, String order, String piece, int time) {
+        setAlgorithm(algorithm);
+        setListType(listType);
         setOrder(order);
         setPiece(piece);
         setTime(time);
     }
 
-    private boolean isValid(String value, String[] validValues) {
-        for (String valid : validValues) {
-            if (valid.equals(value)) {
-                return true;
-            }
-        }
-        return false;
+    private boolean isValid(String value, Set<String> validValues) {
+        return validValues.contains(value);
     }
 
     public String getAlgorithm() {
-        return Algorithm;
+        return algorithm;
     }
 
     public void setAlgorithm(String algorithm) {
-        if (isValid(algorithm, validAlgorithm)) {
-            Algorithm = algorithm;
+        if (isValid(algorithm, VALID_ALGORITHMS)) {
+            this.algorithm = algorithm;
         } else {
-            throw new IllegalArgumentException("Invalid algorithm");
+            throw new IllegalArgumentException("Invalid algorithm: " + algorithm);
         }
-
     }
 
     public String getListType() {
-        return ListType;
+        return listType;
     }
 
     public void setListType(String listType) {
-        if (isValid(listType, validListType)) {
-            ListType = listType;
+        if (isValid(listType, VALID_LIST_TYPES)) {
+            this.listType = listType;
         } else {
-            throw new IllegalArgumentException("Invalid list type");
+            throw new IllegalArgumentException("Invalid list type: " + listType);
         }
     }
 
-    public static String getOrder() {
+    public String getOrder() {
         return order;
     }
 
     public void setOrder(String order) {
-        if (isValid(order, validOrder)) {
+        if (isValid(order, VALID_ORDERS)) {
             this.order = order;
         } else {
-            throw new IllegalArgumentException("Invalid order");
+            throw new IllegalArgumentException("Invalid order: " + order);
         }
     }
 
-    public static String getPiece() {
+    public String getPiece() {
         return piece;
     }
 
     public void setPiece(String piece) {
-        if (isValid(piece, validPiece)) {
+        if (isValid(piece, VALID_PIECES)) {
             this.piece = piece;
         } else {
-            throw new IllegalArgumentException("Invalid piece");
+            throw new IllegalArgumentException("Invalid piece: " + piece);
         }
     }
 
-    public static int getTime() {
+    public int getTime() {
         return time;
     }
 
@@ -87,27 +82,18 @@ public class User {
         if (time > 100 && time < 1000) {
             this.time = time;
         } else {
-            throw new IllegalArgumentException("Invalid time");
+            throw new IllegalArgumentException("Invalid time: " + time);
         }
     }
 
     @Override
     public String toString() {
-        return "Usuario{" +
-                "algoritmo='" + Algorithm + '\'' +
-                ", tipo='" + ListType + '\'' +
-                ", color='" + order + '\'' +
-                ", r=" + piece +
-                ", s=" + time +
+        return "User {" +
+                "algorithm='" + algorithm + '\'' +
+                ", listType='" + listType + '\'' +
+                ", order='" + order + '\'' +
+                ", piece='" + piece + '\'' +
+                ", time=" + time +
                 '}';
     }
 }
-
-
-
-
-
-
-
-
-
