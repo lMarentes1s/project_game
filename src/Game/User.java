@@ -34,7 +34,7 @@ public class User {
         if (isValid(algorithm, VALID_ALGORITHMS)) {
             this.algorithm = algorithm;
         } else {
-            throw new IllegalArgumentException("Invalid algorithm: " + algorithm);
+            throw new IllegalArgumentException("❌ Algoritmo inválido: '" + algorithm + "'. Opciones válidas: " + VALID_ALGORITHMS);
         }
     }
 
