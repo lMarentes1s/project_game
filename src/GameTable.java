@@ -1,49 +1,49 @@
-import java.util.Random;
+import java.util.Collections;
+import java.util.List;
 
 public class GameTable {
-    private final String[][] TABLE = new String[8][8];
-    private int delay;
+    protected final String[][] table;
+    private final int delay;
+    private List<Pieces> pieces;
 
-    public GameTable(int delay) {
-        this.delay = delay;
+    public GameTable() {
+        this.table = new String[8][8];
+        this.delay = User.getTime();
     }
 
-    public void fillTable() {
-        Random random = new Random();
-        String[] pieces = Pieces.listOfNumbers();
-        int piecesPlaced = 0;
+    public void initialize() {
+        clearTable();
+        this.pieces = Pieces.listOfPieces();
 
+        placePiecesOnBoard();
+        printTable();
+
+        // Iniciar el algoritmo de ordenamiento
+        SortingAlgorithms.quickSortAndPrintgit(pieces, this);
+    }
+
+    private void clearTable() {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                TABLE[i][j] = ".";
-            }
-        }
-
-        while (piecesPlaced < pieces.length) {
-            int i = random.nextInt(8);
-            int j = random.nextInt(8);
-            if (TABLE[i][j].equals(".")) {
-                TABLE[i][j] = pieces[piecesPlaced];
-                piecesPlaced++;
+                table[i][j] = "."; // Limpiar la tabla (representar celdas vacías)
             }
         }
     }
 
-    public void sort(String algorithm) {
-        for (int i = 0; i < TABLE.length; i++) {
-            switch (algorithm) {
-                case "b":
-                    SortingAlgorithms.bubbleSort(TABLE[i], delay, this);
-                    break;
-                case "m":
-                    SortingAlgorithms.mergeSort(TABLE[i], delay, this);
-                    break;
-                case "i":
-                    SortingAlgorithms.insertionSort(TABLE[i], delay, this);
-                    break;
-                default:
-                    throw new IllegalArgumentException("Invalid algorithm");
-            }
+    private void placePiecesOnBoard() {
+        for (Pieces piece : pieces) {
+            table[piece.getRow()][piece.getCol()] = piece.getName(); // Colocar piezas en el tablero
+        }
+    }
+
+    public void updateBoard() {
+        clearTable();
+        placePiecesOnBoard();
+        printTable();
+        try {
+            Thread.sleep(delay); // Esperar para visualizar los cambios
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
         }
     }
 
@@ -52,7 +52,7 @@ public class GameTable {
         for (int i = 0; i < 8; i++) {
             System.out.printf("%d ║", 8 - i);
             for (int j = 0; j < 8; j++) {
-                System.out.printf(" %-2s ║", TABLE[i][j]);
+                System.out.printf(" %-2s ║", table[i][j]);
             }
             System.out.println();
             if (i < 7) {
@@ -62,5 +62,9 @@ public class GameTable {
             }
         }
         System.out.println("    A    B    C    D    E    F    G    H");
+    }
+
+    public int getDelay() {
+        return delay;
     }
 }

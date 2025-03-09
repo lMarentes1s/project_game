@@ -1,77 +1,125 @@
-public abstract class Pieces {
-    protected String nombre;
-    protected String color;
-    protected String name;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Collections;
 
-    public Pieces(String name) {
-        this.nombre = name;
+public abstract class Pieces {
+    protected String name;
+    protected int row;
+    protected int col;
+    protected int originalRow;
+    protected int originalCol;
+
+
+    public Pieces(String name, int row, int col) {
+        this.name = name;
+        this.row = row;
+        this.col = col;
+        this.originalRow = row;  // Guardamos la posición original
+        this.originalCol = col;  // Guardamos la posición original
     }
 
     public String getName() {
-        return nombre;
+        return name;
     }
 
-    public String getColor() {
-        return color;
+    public int getRow() {
+        return row;
     }
 
-    public static String[] listOfNumbers() {
-
-        int Quantity = Integer.parseInt(User.getPiece());
-        String[][] pieceByQuantity = {
-                {new King().getName()},
-                {new King().getName(),new Queen().getName()},
-                {new King().getName(),new Queen().getName(), new Bishop().getName(), new Bishop().getName()},
-                {new King().getName(),new Queen().getName(), new Bishop().getName(), new Bishop().getName(), new Knight().getName(), new Knight().getName()},
-                {new King().getName(),new Queen().getName(), new Bishop().getName(), new Bishop().getName(), new Knight().getName(), new Knight().getName(), new Rook().getName(),new Rook().getName()},
-                {new King().getName(),new Queen().getName(), new Bishop().getName(), new Bishop().getName(), new Knight().getName(), new Knight().getName(), new Rook().getName(),new Rook().getName(), new Pawn().getName(), new Pawn().getName()},
-                {new King().getName(),new Queen().getName(), new Bishop().getName(), new Bishop().getName(), new Knight().getName(), new Knight().getName(), new Rook().getName(),new Rook().getName(), new Pawn().getName(), new Pawn().getName(), new Pawn().getName(),new Pawn().getName(),new Pawn().getName(),new Pawn().getName(),new Pawn().getName(),new Pawn().getName()}
-        };
-        int index = (Quantity == 1) ? 0 : (Quantity == 2) ? 1 : (Quantity == 4) ? 2 : (Quantity == 6) ? 3 : (Quantity == 8) ? 4 : (Quantity == 10) ? 5 : 6;
-        return pieceByQuantity[index];
+    public int getCol() {
+        return col;
     }
 
-    public static void printList() {
-        String[] list = listOfNumbers();
-        for (String number : list) {
-            System.out.println(number);
+    public void setRow(int row) {
+        this.row = row;
+    }
+
+    public void setCol(int col) {
+        this.col = col;
+    }
+
+    public int getOriginalRow() {
+        return originalRow;  // Obtener la fila original
+    }
+
+    public int getOriginalCol() {
+        return originalCol;  // Obtener la columna original
+    }
+
+    // Genera una lista de piezas según la configuración del usuario
+    public static List<Pieces> listOfPieces() {
+        int quantity = Integer.parseInt(User.getPiece());
+        String color = User.getOrder();
+
+        int baseRow = color.equalsIgnoreCase("w") ? 0 : 7;
+        int pawnRow = color.equalsIgnoreCase("w") ? 1 : 6;
+
+        List<Pieces> pieces = new ArrayList<>();
+
+        // Añadir piezas según la cantidad seleccionada
+        if (quantity >= 1) pieces.add(new King(baseRow, 4));
+        if (quantity >= 2) pieces.add(new Queen(baseRow, 3));
+        if (quantity >= 4) {
+            pieces.add(new Bishop(baseRow, 2));
+            pieces.add(new Bishop(baseRow, 5));
+        }
+        if (quantity >= 6) {
+            pieces.add(new Knight(baseRow, 1));
+            pieces.add(new Knight(baseRow, 6));
+        }
+        if (quantity >= 8) {
+            pieces.add(new Rook(baseRow, 0));
+            pieces.add(new Rook(baseRow, 7));
+        }
+        if (quantity >= 10) {
+            pieces.add(new Pawn(pawnRow, 0));
+            pieces.add(new Pawn(pawnRow, 1));
+        }
+        if (quantity > 10) {
+            for (int i = 2; i < 8; i++) {
+                pieces.add(new Pawn(pawnRow, i));
+            }
         }
 
+        // Desordenamos las piezas antes de colocarlas en el tablero
+        Collections.shuffle(pieces);
+        return pieces;
     }
 
+    // Clases concretas para cada tipo de pieza
     static class King extends Pieces {
-        public King() {
-            super("KG");
+        public King(int row, int col) {
+            super("KG", row, col);
         }
     }
 
     static class Queen extends Pieces {
-        public Queen() {
-            super("QN");
+        public Queen(int row, int col) {
+            super("QN", row, col);
         }
     }
 
     static class Rook extends Pieces {
-        public Rook() {
-            super("RK");
+        public Rook(int row, int col) {
+            super("RK", row, col);
         }
     }
 
     static class Bishop extends Pieces {
-        public Bishop() {
-            super("BP");
+        public Bishop(int row, int col) {
+            super("BP", row, col);
         }
     }
 
     static class Knight extends Pieces {
-        public Knight() {
-            super("KT");
+        public Knight(int row, int col) {
+            super("KT", row, col);
         }
     }
 
     static class Pawn extends Pieces {
-        public Pawn() {
-            super("PW");
+        public Pawn(int row, int col) {
+            super("PW", row, col);
         }
     }
 }

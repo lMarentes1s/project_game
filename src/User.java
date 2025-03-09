@@ -3,10 +3,10 @@ public class User {
     private String ListType;
     private static String order;
     private static String piece;
-    private int time;
+    private static int time;
 
 
-    private String[] validAlgorithm = {"b", "q", "m"};  // Bubble, Quick, Merge
+    private String[] validAlgorithm = {"b", "m", "i"};  // Bubble, Merge, Insert
     private String[] validListType = {"n", "c"};  // Numeric, Character
     private String[] validOrder = {"b", "w"};  // Black,white
     private String[] validPiece = {"1", "2", "4", "8", "10", "16"};  // 1,2,4,8,10,16
@@ -77,7 +77,7 @@ public class User {
         }
     }
 
-    public int getTime() {
+    public static int getTime() {
         return time;
     }
 

@@ -20,17 +20,9 @@ public class Main {
             User user = new User(algorithm, listType, order, piece, time);
             System.out.println(user);
 
-            GameTable gameTable = new GameTable(time);
-            gameTable.fillTable();
-            gameTable.printTable();
+            GameTable gameTable = new GameTable();
+            gameTable.initialize();
 
-            long startTime = System.currentTimeMillis();
-            gameTable.sort(algorithm);
-            long endTime = System.currentTimeMillis();
-
-            System.out.println("Time elapsed: " + (endTime - startTime) + " ms");
-        } else {
-            System.out.println("Please provide the parameters in the correct format.");
         }
     }
 }
