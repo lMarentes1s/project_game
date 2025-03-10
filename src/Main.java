@@ -5,12 +5,22 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Main {
+    /**
+     * Main class to start the game and sorting process.
+     */
     public static void main(String[] args) {
+
+        /**
+         * Main method to parse arguments and initialize the game.
+         *
+         * @param args Command line arguments for game settings.
+         */
         if (args.length > 1) {
+
             Map<String, String> paramMap = new HashMap<>();
             for (String param : args) {
                 String[] keyValue = param.split("=");
-                paramMap.put(keyValue[0], keyValue[1]);
+                paramMap.put(keyValue[0].toLowerCase(), keyValue[1].toLowerCase());
             }
 
             String algorithm = paramMap.get("a");

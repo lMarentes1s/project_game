@@ -5,6 +5,9 @@ import Pieces.PieceUtils;
 import Interface.SortingAlgorithm;
 
 import java.util.List;
+/**
+ * Recursively sorts the list using the Quick Sort algorithm.
+ */
 
 // QuickSortAlgorithm.java
 public class QuickSortAlgorithm implements SortingAlgorithm {
@@ -17,6 +20,9 @@ public class QuickSortAlgorithm implements SortingAlgorithm {
         PieceUtils.movePiecesToOriginalPositions(pieces, gameTable);
         System.out.println("Ordenamiento completado.");
     }
+    /**
+     * Recursively sorts the list using the Quick Sort algorithm.
+     */
 
     private void quickSort(List<Pieces> pieces, int low, int high, GameTable gameTable) {
         if (low < high) {
@@ -25,7 +31,9 @@ public class QuickSortAlgorithm implements SortingAlgorithm {
             quickSort(pieces, pi + 1, high, gameTable);
         }
     }
-
+    /**
+     * Partitions the list and returns the pivot index.
+     */
     private int partition(List<Pieces> pieces, int low, int high, GameTable gameTable) {
         Pieces pivot = pieces.get(high);
         int i = low - 1;

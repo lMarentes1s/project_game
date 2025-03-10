@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import Game.User;
+/**
+ * Abstract class representing a game piece.
+ */
 
 public abstract class Pieces {
     protected String name;
@@ -48,6 +51,10 @@ public abstract class Pieces {
         return originalCol;
     }
 
+    /**
+     * Creates a list of pieces based on the user's input.
+     */
+
     public static List<Pieces> createPiecesList(User user) {
         int quantity = Integer.parseInt(user.getPiece());
         String color = user.getOrder();
@@ -84,6 +91,9 @@ public abstract class Pieces {
         Collections.shuffle(pieces);
         return pieces;
     }
+    /**
+     * Classes representing a pieces.
+     */
 
     static class King extends Pieces {
         public King(int row, int col) {
