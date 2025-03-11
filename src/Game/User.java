@@ -15,7 +15,7 @@ public class User {
     private static final Set<String> VALID_ALGORITHMS = Set.of("q", "s", "i");  // QuickSort, SelectionSort, InsertionSort
     private static final Set<String> VALID_LIST_TYPES = Set.of("n", "c");  // Numeric, Character
     private static final Set<String> VALID_ORDERS = Set.of("b", "w");  // Black, White
-    private static final Set<String> VALID_PIECES = Set.of("1", "2", "4", "8", "10", "16");
+    private static final Set<String> VALID_PIECES = Set.of("1", "2", "4","6", "8", "10", "16");
 
     /**
      * Constructor for the User class.

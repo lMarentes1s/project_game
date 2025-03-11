@@ -29,8 +29,7 @@ public class GameTable {
         this.pieces = Pieces.createPiecesList(user);
         placePiecesOnBoard();
         printTable();
-        SortingAlgorithms sort = new SortingAlgorithms();
-        sort.sortAndPrint(pieces, this, user.getAlgorithm());
+        SortingAlgorithms.sortAndPrint(pieces, this, user.getAlgorithm());
     }
 
     /**
